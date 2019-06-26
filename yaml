@@ -1,0 +1,37 @@
+pool:
+
+  name: Hosted Ubuntu 1604
+
+steps:
+
+- task: Docker@0
+
+  displayName: 'Build an image'
+
+  inputs:
+
+    azureSubscription: 'OTA-PRD-678 (a9a73c3e-7cb3-4a87-8ad3-b2d7cbfa318f)'
+
+    azureContainerRegistry: '{"loginServer":"openhackhcq4acr.azurecr.io", "id" : "/subscriptions/a9a73c3e-7cb3-4a87-8ad3-b2d7cbfa318f/resourceGroups/openhackhcq4rg/providers/Microsoft.ContainerRegistry/registries/openhackhcq4acr"}'
+
+    dockerFile: apis/userprofile/Dockerfile
+
+    imageName: 'devopsoh/api-user:$(Build.BuildId)'
+
+
+
+- task: Docker@0
+
+  displayName: 'Push an image'
+
+  inputs:
+
+    azureSubscription: 'OTA-PRD-678 (a9a73c3e-7cb3-4a87-8ad3-b2d7cbfa318f)'
+
+    azureContainerRegistry: '{"loginServer":"openhackhcq4acr.azurecr.io", "id" : "/subscriptions/a9a73c3e-7cb3-4a87-8ad3-b2d7cbfa318f/resourceGroups/openhackhcq4rg/providers/Microsoft.ContainerRegistry/registries/openhackhcq4acr"}'
+
+    action: 'Push an image'
+
+    imageName: 'devopsoh/api-user:$(Build.BuildId)'
+
+
